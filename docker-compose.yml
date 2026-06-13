@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  clipper-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: youtube-clipper-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - temp_files:/tmp/youtube-clipper
+    environment:
+      - DEBUG=false
+      - MAX_CLIP_DURATION=300
+      - MAX_FILE_SIZE=524288000
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:80
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 10s
+
+  # Frontend Static File Server
+  clipper-frontend:
+    image: nginx:alpine
+    container_name: youtube-clipper-frontend
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - clipper-backend
+    restart: unless-stopped
+
+# Persistent volume for temporary files
+volumes:
+  temp_files:
+    driver: local
