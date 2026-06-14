@@ -14,6 +14,10 @@ Aplikasi web untuk mengekstrak dan mengunduh bagian spesifik dari video YouTube 
 - **Timeline Clipper** - Pilih segment waktu dengan slider interaktif
 - **Stream Processing** - Hemat bandwidth dengan FFmpeg streaming
 - **Download MP4** - Unduh hasil klip langsung ke perangkat
+- **🔗 URL Shortener** - Pendekatkan link download dengan Shrtco.de API
+- **☁️ Cloud Upload** - Upload clip ke GoFile.io cloud storage
+- **📊 Video Metadata** - Ambil data tambahan video dari YouTube
+- **📈 Clip Statistics** - Lihat statistik clip yang dibuat
 
 ## 🛠️ Tech Stack
 
@@ -197,6 +201,106 @@ Download file klip.
 
 ```bash
 curl -O http://localhost:8000/api/download/abc123-def456
+```
+
+### POST /api/shorten
+
+Pendekatkan URL download menggunakan Shrtco.de API.
+
+```bash
+curl -X POST http://localhost:8000/api/shorten \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/api/download/abc123"}'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "original_url": "https://example.com/api/download/abc123",
+  "short_url": "https://shrtco.de/xyz",
+  "short_url_2": "https://shrtco.de/abc",
+  "share_url": "https://shrtco.de/share/xyz"
+}
+```
+
+### GET /api/thumbnail/{video_id}
+
+Dapatkan thumbnail video YouTube.
+
+```bash
+curl http://localhost:8000/api/thumbnail/dQw4w9WgXcQ
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "video_id": "dQw4w9WgXcQ",
+  "thumbnail_url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+  "thumbnails": {
+    "maxresdefault": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    "hqdefault": "https://i.ytimg.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
+  }
+}
+```
+
+### POST /api/upload
+
+Upload clip ke GoFile.io cloud storage.
+
+```bash
+curl -X POST http://localhost:8000/api/upload \
+  -H "Content-Type: application/json" \
+  -d '{"session_id": "abc123-def456"}'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "download_page": "https://gofile.io/d/abc123",
+  "direct_link": "https://store1.gofile.io/contents/download/abc123.mp4",
+  "file_name": "clip_abc123-def456.mp4"
+}
+```
+
+### GET /api/metadata/{video_id}
+
+Dapatkan metadata tambahan video YouTube.
+
+```bash
+curl http://localhost:8000/api/metadata/dQw4w9WgXcQ
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "author_name": "Rick Astley",
+  "author_url": "https://www.youtube.com/@RickAstley",
+  "thumbnail_url": "https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+}
+```
+
+### GET /api/stats/{session_id}
+
+Dapatkan statistik clip yang telah diproses.
+
+```bash
+curl http://localhost:8000/api/stats/abc123-def456
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "session_id": "abc123-def456",
+  "clip_duration": 30,
+  "clip_size": 5242880,
+  "created_at": "2024-01-01T00:00:00",
+  "file_path": "/tmp/youtube-clipper/abc123-def456/output.mp4"
+}
 ```
 
 ## ⚙️ Konfigurasi
