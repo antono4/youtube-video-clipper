@@ -1,7 +1,7 @@
 """
 Application configuration settings.
 """
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
 
 
@@ -27,9 +27,10 @@ class Settings(BaseSettings):
     # CORS settings
     CORS_ORIGINS: list = ["*"]
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True
+    )
 
 
 settings = Settings()
