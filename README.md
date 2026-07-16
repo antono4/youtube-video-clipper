@@ -1,5 +1,8 @@
 # YouTube Video Clipper
 
+> **Created by Antono**
+
+
 Aplikasi web untuk mengekstrak dan mengunduh bagian spesifik dari video YouTube dalam format MP4.
 
 ![YouTube Clipper](https://img.shields.io/badge/YouTube-Clipper-red)
