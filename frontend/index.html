@@ -257,21 +257,50 @@
                     <h2 class="text-2xl font-bold text-white mb-2">Clip Berhasil Dibuat!</h2>
                     <p id="resultInfo" class="text-neutral-400 mb-6">File siap diunduh</p>
                     
-                    <a 
-                        id="downloadBtn"
-                        href="#"
-                        download
-                        class="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-green-900/30"
-                    >
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Download MP4
-                    </a>
+                    <div class="flex flex-wrap justify-center gap-4 mb-6">
+                        <a 
+                            id="downloadBtn"
+                            href="#"
+                            download
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-green-900/30"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download MP4
+                        </a>
+                        
+                        <button 
+                            id="uploadCloudBtn"
+                            class="inline-flex items-center gap-3 px-6 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-purple-900/30"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                            </svg>
+                            Upload ke Cloud
+                        </button>
+                    </div>
+                    
+                    <!-- Share Section -->
+                    <div class="bg-neutral-800/50 rounded-xl p-4 mb-6">
+                        <p class="text-sm text-neutral-400 mb-3">Bagikan Link:</p>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button 
+                                id="copyLinkBtn"
+                                class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-all"
+                            >
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/>
+                                </svg>
+                                Salin Link
+                            </button>
+                            <p id="shortUrlDisplay" class="text-sm text-green-400 font-mono hidden"></p>
+                        </div>
+                    </div>
                     
                     <button 
                         id="resetBtn"
-                        class="ml-4 px-6 py-4 bg-neutral-700 hover:bg-neutral-600 text-white font-medium rounded-xl transition-all"
+                        class="px-6 py-4 bg-neutral-700 hover:bg-neutral-600 text-white font-medium rounded-xl transition-all"
                     >
                         Clip Baru
                     </button>

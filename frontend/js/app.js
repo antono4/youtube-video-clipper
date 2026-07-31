@@ -13,6 +13,7 @@ class YouTubeClipper {
         this.endTime = 30;
         this.currentSessionId = null;
         this.maxDuration = 300; // 5 minutes
+        this.videoMetadata = null;
         
         this.initElements();
         this.bindEvents();
@@ -54,6 +55,11 @@ class YouTubeClipper {
         this.resultInfo = document.getElementById('resultInfo');
         this.resetBtn = document.getElementById('resetBtn');
         
+        // New feature elements
+        this.uploadCloudBtn = document.getElementById('uploadCloudBtn');
+        this.copyLinkBtn = document.getElementById('copyLinkBtn');
+        this.shortUrlDisplay = document.getElementById('shortUrlDisplay');
+        
         // Initialize video player
         this.player = new VideoPlayer('playerContainer');
     }
@@ -73,6 +79,10 @@ class YouTubeClipper {
         
         // Process clip
         this.processBtn.addEventListener('click', () => this.processClip());
+        
+        // New feature buttons
+        this.uploadCloudBtn.addEventListener('click', () => this.uploadToCloud());
+        this.copyLinkBtn.addEventListener('click', () => this.copyShareLink());
         
         // Reset
         this.resetBtn.addEventListener('click', () => this.reset());
@@ -130,6 +140,9 @@ class YouTubeClipper {
             // Initialize sliders
             this.initSliders();
             
+            // Fetch additional metadata
+            this.fetchMetadata(response.video_id);
+            
             // Scroll to preview
             setTimeout(() => {
                 this.previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -140,6 +153,19 @@ class YouTubeClipper {
             this.previewSection.classList.add('hidden');
         } finally {
             this.validateBtn.disabled = false;
+        }
+    }
+    
+    async fetchMetadata(videoId) {
+        try {
+            const response = await fetch(`/api/metadata/${videoId}`);
+            const data = await response.json();
+            if (data.success) {
+                // Store metadata for sharing features
+                this.videoMetadata = data;
+            }
+        } catch (error) {
+            console.warn('Failed to fetch metadata:', error);
         }
     }
     
@@ -287,6 +313,9 @@ class YouTubeClipper {
                 this.downloadBtn.download = `clip_${this.formatTime(this.startTime).replace(/:/g, '-')}_${this.formatTime(this.endTime).replace(/:/g, '-')}.mp4`;
                 this.resultInfo.textContent = `Clip ${this.formatTime(this.startTime)} - ${this.formatTime(this.endTime)} (${this.formatFileSize(response.file_size)})`;
                 
+                // Shorten the download URL
+                this.shortenDownloadUrl(response.file_path);
+                
                 // Show result section
                 setTimeout(() => {
                     this.progressContainer.classList.add('hidden');
@@ -302,6 +331,68 @@ class YouTubeClipper {
             this.progressContainer.classList.add('hidden');
         } finally {
             this.processBtn.disabled = false;
+        }
+    }
+    
+    async shortenDownloadUrl(originalUrl) {
+        try {
+            const response = await fetch('/api/shorten', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: window.location.origin + originalUrl })
+            });
+            const data = await response.json();
+            if (data.success && data.short_url) {
+                // Store shortened URL for sharing
+                this.shortenedUrl = data.short_url;
+                console.log('Short URL:', data.short_url);
+            }
+        } catch (error) {
+            console.warn('Failed to shorten URL:', error);
+        }
+    }
+    
+    async uploadToCloud() {
+        if (!this.currentSessionId) {
+            this.showStatus('Tidak ada clip untuk diupload', 'error');
+            return;
+        }
+        
+        try {
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ session_id: this.currentSessionId })
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                // Open download page in new tab
+                if (data.download_page) {
+                    window.open(data.download_page, '_blank');
+                }
+                this.showStatus('Upload berhasil! Halaman download terbuka.', 'success');
+            } else {
+                throw new Error(data.error || 'Upload gagal');
+            }
+        } catch (error) {
+            this.showStatus(error.message || 'Gagal upload ke cloud', 'error');
+        }
+    }
+    
+    async copyShareLink() {
+        if (this.shortenedUrl) {
+            try {
+                await navigator.clipboard.writeText(this.shortenedUrl);
+                // Show the short URL
+                this.shortUrlDisplay.textContent = this.shortenedUrl;
+                this.shortUrlDisplay.classList.remove('hidden');
+                this.showStatus('Link berhasil disalin!', 'success');
+            } catch (error) {
+                this.showStatus('Gagal menyalin link', 'error');
+            }
+        } else {
+            this.showStatus('Tidak ada link untuk disalin. Generate clip terlebih dahulu.', 'error');
         }
     }
     

@@ -64,3 +64,70 @@ class ProcessingStatusResponse(BaseModel):
     status: str  # pending, processing, completed, failed
     progress: float  # 0.0 to 1.0
     message: Optional[str] = None
+
+
+class URLShortenRequest(BaseModel):
+    """Request model for URL shortening."""
+    url: str = Field(..., min_length=1, description="URL to shorten")
+
+
+class URLShortenResponse(BaseModel):
+    """Response model for URL shortening."""
+    success: bool
+    original_url: Optional[str] = None
+    short_url: Optional[str] = None
+    short_url_2: Optional[str] = None
+    short_url_3: Optional[str] = None
+    share_url: Optional[str] = None
+    error: Optional[str] = None
+
+
+class ThumbnailRequest(BaseModel):
+    """Request model for thumbnail generation."""
+    video_id: str = Field(..., description="YouTube video ID")
+    quality: str = Field(default="maxresdefault", description="Thumbnail quality")
+
+
+class ThumbnailResponse(BaseModel):
+    """Response model for thumbnail generation."""
+    success: bool
+    video_id: Optional[str] = None
+    thumbnail_url: Optional[str] = None
+    thumbnails: Optional[dict] = None
+    error: Optional[str] = None
+
+
+class CloudUploadRequest(BaseModel):
+    """Request model for cloud upload."""
+    session_id: str = Field(..., min_length=1, description="Session ID of the clip to upload")
+
+
+class CloudUploadResponse(BaseModel):
+    """Response model for cloud upload."""
+    success: bool
+    download_page: Optional[str] = None
+    direct_link: Optional[str] = None
+    file_name: Optional[str] = None
+    error: Optional[str] = None
+
+
+class VideoMetadataResponse(BaseModel):
+    """Response model for video metadata."""
+    success: bool
+    author_name: Optional[str] = None
+    author_url: Optional[str] = None
+    thumbnail_url: Optional[str] = None
+    html_embed: Optional[str] = None
+    width: Optional[int] = None
+    height: Optional[int] = None
+    error: Optional[str] = None
+
+
+class ClipStatsResponse(BaseModel):
+    """Response model for clip statistics."""
+    success: bool
+    session_id: str
+    clip_duration: int
+    clip_size: int
+    created_at: Optional[str] = None
+    file_path: str
