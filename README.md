@@ -18,7 +18,7 @@
 
 ## 📖 Tentang
 
-Repository **`youtube-video-clipper`** adalah proyek perangkat lunak yang dibangun dengan HTML, CSS, JavaScript, Python.
+Repository **`youtube-video-clipper`** adalah proyek Python yang dibangun dengan HTML, CSS, JavaScript, Python.
 Demo berjalan tersedia melalui **GitHub Pages** di [`https://antono4.github.io/youtube-video-clipper/`](https://antono4.github.io/youtube-video-clipper/).
 
 ## 🗂️ Struktur Proyek
@@ -76,7 +76,12 @@ Berdasarkan ekstensi berkas yang terdeteksi di repository:
 
 ## 🚀 Menjalankan Secara Lokal
 
-Lihat berkas konfigurasi di repository ini untuk cara menjalankannya.
+Butuh Python 3:
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+```
 
 ## 📬 Kontak
 
