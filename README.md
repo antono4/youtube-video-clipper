@@ -1,96 +1,78 @@
-<!-- README ini dihasilkan otomatis oleh .github/workflows/generate-readme.yml -->
-<!-- Jangan edit manual: perubahan akan ditimpa pada run berikutnya. -->
+<!-- README ini dihasilkan otomatis oleh workflow .github/workflows/generate-readme.yml -->
+<!-- Jangan edit manual; perubahan akan ditim pada run berikutnya. -->
 
-<h1 align="center">youtube-video-clipper 👋</h1>
+<h1 align="center">Project 👋</h1>
 
 <p align="center">
-  <em>YouTube Video Clipper - Blueprint arsitektur lengkap</em>
+  <strong></strong>
 </p>
 
 <p align="center">
   <a href="https://github.com/antono4/youtube-video-clipper"><img alt="GitHub repo" src="https://img.shields.io/badge/GitHub-antono4/youtube-video-clipper-blue?logo=github"></a>
   <a href="https://antono4.github.io/youtube-video-clipper/"><img alt="Live Demo" src="https://img.shields.io/badge/Live%20Demo-Online-success?logo=githubpages"></a>
-  <img alt="Files" src="https://img.shields.io/badge/Files-34-informational">
-  <img alt="Last commit" src="https://img.shields.io/github/last-commit/antono4/youtube-video-clipper">
+  <img alt="Files" src="https://img.shields.io/badge/Files-37-informational">
+  <img alt="Updated" src="https://img.shields.io/badge/Updated-2026-09-18 07:13:03 WIB-lightgrey">
 </p>
 
 ---
 
 ## 📖 Tentang
 
-Repository **`youtube-video-clipper`** adalah proyek Python yang dibangun dengan HTML, CSS, JavaScript, Python.
-Demo berjalan tersedia melalui **GitHub Pages** di [`https://antono4.github.io/youtube-video-clipper/`](https://antono4.github.io/youtube-video-clipper/).
+Repository **`youtube-video-clipper`** adalah situs web pribadi / portofolio yang diterbitkan melalui **GitHub Pages**. Situs utama berada di [`https://antono4.github.io/youtube-video-clipper/`](https://antono4.github.io/youtube-video-clipper/).
 
 ## 🗂️ Struktur Proyek
 
 ```
 youtube-video-clipper/
-.github/
-  workflows/
-BLUEPRINT.md
-LICENSE
-backend/
-  .env.example
-  Dockerfile
-  __init__.py
-  api/
-  core/
-  main.py
-  requirements.txt
-  services/
-  utils/
-docker-compose.yml
-docs/
-  .nojekyll
-  css/
-  index.html
-  js/
-frontend/
-  css/
-  index.html
-  js/
-nginx.conf
-temp/
-  .gitkeep
+├── index.html          # Halaman utama (landing / portofolio)
+├── assets/             # Aset statis (css, js, img, vendor)
+├── forms/               # Form handler (PHP)
+└── docs/              # YouTube Video Clipper | Extract & Download Video Clips  ->  https://antono4.github.io/youtube-video-clipper/docs/
+└── frontend/              # YouTube Video Clipper | Extract & Download Video Clips  ->  https://antono4.github.io/youtube-video-clipper/frontend/
 ```
 
 ## 🌐 Sub-Proyek / Demo
 
-Repository ini juga memuat sub-proyek (masing-masing punya `index.html` tersendiri):
+Situs ini juga memuat beberapa sub-proyek (masing-masing punya `index.html` tersendiri):
 
-| Folder | Keterangan |
-|--------|-----------|
-| [`docs`](./docs) | YouTube Video Clipper | Extract & Download Video Clips |
-| [`frontend`](./frontend) | YouTube Video Clipper | Extract & Download Video Clips |
+| Folder | Demo Live | Keterangan |
+|--------|-----------|-----------|
+| [`docs`](./docs) | [https://antono4.github.io/youtube-video-clipper/docs/](https://antono4.github.io/youtube-video-clipper/docs/) | YouTube Video Clipper | Extract & Download Video Clips |
+| [`frontend`](./frontend) | [https://antono4.github.io/youtube-video-clipper/frontend/](https://antono4.github.io/youtube-video-clipper/frontend/) | YouTube Video Clipper | Extract & Download Video Clips |
 
 ## 🛠️ Teknologi
 
-Berdasarkan ekstensi berkas yang terdeteksi di repository:
+Berdasarkan isi repository, proyek ini menggunakan:
 
 - `HTML`
 - `CSS`
 - `JavaScript`
 - `Python`
 
-> Total **34 berkas** di repository (di luar `.git`, `node_modules`, `dist`, dan `build`).
+> Total **37 file** terdeteksi di repository.
 
 ## 🚀 Menjalankan Secara Lokal
 
-Butuh Python 3:
+Karena ini situs statis (HTML/CSS/JS/PHP), cukup buka `index.html` di browser, atau jalankan server lokal:
 
 ```bash
-python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# Tanpa dependency
+python3 -m http.server 8000
+# lalu buka http://localhost:8000
+
+# atau dengan PHP (untuk form handler di forms/)
+php -S localhost:8000
 ```
 
 ## 📬 Kontak
 
 - GitHub: [antono4](https://github.com/antono4)
+- Situs: [https://antono4.github.io/youtube-video-clipper/](https://antono4.github.io/youtube-video-clipper/)
 
 ## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah MIT License — lihat berkas [`LICENSE`](./LICENSE).
+Lihat berkas [`LICENSE`](./LICENSE) untuk informasi lisensi.
 
 ---
 
-<sub>README ini di-generate otomatis oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
+<sub>README ini di-generate otomatis pada **2026-09-18 07:13:03 WIB** oleh GitHub Actions `.github/workflows/generate-readme.yml`.</sub>
